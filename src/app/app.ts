@@ -1,12 +1,13 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { RegistroComponent } from './components/registro/registro';
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'app-root',
-  styleUrl: './app.css',
+  standalone: true,
+  imports: [RegistroComponent],
   templateUrl: './app.html',
+  styleUrls: ['./app.css']
 })
 export class App {
-  protected readonly title = signal('formulario-reactivo');
+  title = 'formulario-reactivo';
 }

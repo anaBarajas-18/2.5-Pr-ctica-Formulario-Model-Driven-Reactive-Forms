@@ -1,0 +1,68 @@
+<div class="form-container">
+  <h2>Registro de Usuario</h2>
+  <p class="subtitle">Práctica: Reactive Forms</p>
+
+  <form [formGroup]="registroForm" (ngSubmit)="enviarFormulario()" class="reactive-form">
+    
+    <!-- Nombre -->
+    <div class="form-group">
+      <label>Nombre:</label>
+      <input type="text" formControlName="nombre" [class.invalid]="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched">
+      <div class="error" *ngIf="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched">
+        El nombre es obligatorio.
+      </div>
+    </div>
+
+    <!-- Apellidos -->
+    <div class="form-group">
+      <label>Apellidos:</label>
+      <input type="text" formControlName="apellidos" [class.invalid]="registroForm.get('apellidos')?.invalid && registroForm.get('apellidos')?.touched">
+      <div class="error" *ngIf="registroForm.get('apellidos')?.invalid && registroForm.get('apellidos')?.touched">
+        Los apellidos son obligatorios.
+      </div>
+    </div>
+
+    <!-- Correo -->
+    <div class="form-group">
+      <label>Correo Electrónico:</label>
+      <input type="email" formControlName="correo" [class.invalid]="registroForm.get('correo')?.invalid && registroForm.get('correo')?.touched">
+      <div class="error" *ngIf="registroForm.get('correo')?.invalid && registroForm.get('correo')?.touched">
+        <span *ngIf="registroForm.get('correo')?.errors?.['required']">El correo es obligatorio. </span>
+        <span *ngIf="registroForm.get('correo')?.errors?.['email']">Ingresa un correo válido.</span>
+      </div>
+    </div>
+
+    <!-- Teléfono -->
+    <div class="form-group">
+      <label>Teléfono:</label>
+      <input type="tel" formControlName="telefono" [class.invalid]="registroForm.get('telefono')?.invalid && registroForm.get('telefono')?.touched">
+      <div class="error" *ngIf="registroForm.get('telefono')?.invalid && registroForm.get('telefono')?.touched">
+        El teléfono es obligatorio.
+      </div>
+    </div>
+
+    <!-- Contraseña -->
+    <div class="form-group">
+      <label>Contraseña:</label>
+      <input type="password" formControlName="contrasena" [class.invalid]="registroForm.get('contrasena')?.invalid && registroForm.get('contrasena')?.touched">
+      <div class="error" *ngIf="registroForm.get('contrasena')?.invalid && registroForm.get('contrasena')?.touched">
+        <span *ngIf="registroForm.get('contrasena')?.errors?.['required']">La contraseña es obligatoria. </span>
+        <span *ngIf="registroForm.get('contrasena')?.errors?.['minlength']">Debe tener al menos 8 caracteres.</span>
+      </div>
+    </div>
+
+    <!-- Botón deshabilitado si el formulario no es válido -->
+    <button type="submit" [disabled]="registroForm.invalid" class="btn-submit">
+      Registrarse
+    </button>
+  </form>
+
+  <!-- Muestra los datos en pantalla al enviar -->
+  <div class="resultado" *ngIf="datosEnviados">
+    <h3>¡Registro Exitoso!</h3>
+    <p><strong>Nombre:</strong> {{ datosEnviados.nombre }} {{ datosEnviados.apellidos }}</p>
+    <p><strong>Correo:</strong> {{ datosEnviados.correo }}</p>
+    <p><strong>Teléfono:</strong> {{ datosEnviados.telefono }}</p>
+    <p><strong>Contraseña:</strong> ********</p>
+  </div>
+</div>
